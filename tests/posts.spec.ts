@@ -44,4 +44,15 @@ test.describe('/posts API Endpoint Tests', () => {
             expect(post.userId).toBe(1);
         })
     })
+
+    test('should return exactly 5 posts', async ({ request }) => {
+        const response = await request.get('https://jsonplaceholder.typicode.com/posts?_limit=5');
+
+        // Verify status code is good
+        expect(response.status()).toBe(200);
+
+        // Verify exactly 5 posts are returned
+        const responseBody: Post[] = await response.json();
+        expect(responseBody.length).toBe(5);
+    })
 });
