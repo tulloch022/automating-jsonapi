@@ -7,6 +7,7 @@ interface Post {
     body: string;
 }
 
+
 test.describe('/posts API Endpoint Tests', () => {
     test('should return all posts for all users', async ({ request }) => {
         const response = await request.get('https://jsonplaceholder.typicode.com/posts');
@@ -54,5 +55,20 @@ test.describe('/posts API Endpoint Tests', () => {
         // Verify exactly 5 posts are returned
         const responseBody: Post[] = await response.json();
         expect(responseBody.length).toBe(5);
+    })
+
+    test('should return posts in ascending order', async ({ request }) => {
+        const response = await request.get('https://jsonplaceholder.typicode.com/posts?_sort=title&_order=asc');
+
+        // Verify status code is good
+        expect(response.status()).toBe(200);
+
+        // Sort the titles ascendingly programatically
+        const responseBody: Post[] = await response.json();
+        const actualTitles = responseBody.map(post => post.title);
+
+        const sortedTitles = [...actualTitles].sort()
+        
+        expect(actualTitles).toEqual(sortedTitles)
     })
 });
