@@ -1,0 +1,23 @@
+{
+  "name": "automating-jsonapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tulloch022/automating-jsonapi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tulloch022/automating-jsonapi/issues"
+  },
+  "homepage": "https://github.com/tulloch022/automating-jsonapi#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2"
+  }
+}
