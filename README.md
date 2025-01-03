@@ -64,4 +64,4 @@ Additional endpoints and advanced scenarios are planned as part of the ongoing p
 ---
 
 ### **Disclaimer**
-This repository is under active development and may contain interim files or experimental implementations. For questions or feedback, feel free to reach out!
+This repository is under active development and may contain interim files or experimental implementations.
