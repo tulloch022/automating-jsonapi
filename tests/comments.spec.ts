@@ -56,7 +56,7 @@ test.describe('/comments API Endpoint Test', () => {
         const responseBody = await response.json();
         expect(responseBody.length, 'Expected empty response for non-existent postId').toBe(0);
     })
-    test('should return all comments for invalid query parameter', async ({ request }) => {
+    test('should handle invalid query parameters gracefully', async ({ request }) => {
         const response = await request.get('/comments?invalidParam=xyz');
     
         // Verify status code is good
@@ -65,8 +65,11 @@ test.describe('/comments API Endpoint Test', () => {
         // Verify all comments are returned
         const responseBody: Comment[] = await response.json();
         expect(responseBody.length, 'Expected all comments to be returned for invalid query parameter').toBeGreaterThan(0);
+
+         // Verify structure of each comment
+         responseBody.forEach(validateCommentStucture);
     });
-    test('should return limited number of comments', async ({ request }) => {
+    test('should return 5 comments when _limit is specified', async ({ request }) => {
         const response = await request.get('/comments?_limit=5');
     
         // Verify status code is good
