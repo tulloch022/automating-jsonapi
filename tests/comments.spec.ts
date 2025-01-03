@@ -8,7 +8,7 @@ interface Comment {
     body: string
 }
 
-const validateCommentStucture = (comment: Comment) => {
+const validateCommentStructure = (comment: Comment) => {
     expect(comment.postId, 'Comment is missing postId').toBeDefined();
     expect(comment.id, 'Comment is missing id').toBeDefined();
     expect(comment.name, 'Comment is missing name').toBeDefined();
@@ -28,7 +28,7 @@ test.describe('/comments API Endpoint Test', () => {
         expect(responseBody.length, 'Expected response to not be empty').toBeGreaterThan(0);
     
         // Verify structure of each comment
-        responseBody.forEach(validateCommentStucture)
+        responseBody.forEach(validateCommentStructure)
     })
     
     test('should return comments for postId=2', async ({ request }) => {
@@ -67,7 +67,7 @@ test.describe('/comments API Endpoint Test', () => {
         expect(responseBody.length, 'Expected all comments to be returned for invalid query parameter').toBeGreaterThan(0);
 
          // Verify structure of each comment
-         responseBody.forEach(validateCommentStucture);
+         responseBody.forEach(validateCommentStructure);
     });
     test('should return 5 comments when _limit is specified', async ({ request }) => {
         const response = await request.get('/comments?_limit=5');
@@ -80,6 +80,19 @@ test.describe('/comments API Endpoint Test', () => {
         expect(responseBody.length, 'Expected exactly 5 comments to be returned').toBe(5);
     
         // Verify structure of each comment
-        responseBody.forEach(validateCommentStucture);
+        responseBody.forEach(validateCommentStructure);
+    });
+    test('should skip comments based on _start parameter', async ({ request }) => {
+        const response = await request.get('/comments?_start=5&_limit=5');
+
+        // Verify status code is good
+        expect(response.status(), 'Expected status code to be 200 for /comments?_start=5&_limit=5').toBe(200);
+
+        // Verify exactly 5 comments are returned
+        const responseBody: Comment[] = await response.json();
+        expect(responseBody.length, 'Expected exactly 5 comments to be returned after skipping 5').toBe(5);
+
+        // Verify structure of each comment
+        responseBody.forEach(validateCommentStructure);
     });
 })
