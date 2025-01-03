@@ -1,2 +1,41 @@
 import { test, expect } from '@playwright/test';
 
+
+interface Album {
+    userId: number;
+    id: number;
+    title: string;
+}
+
+
+test.describe('/albums API Endpoint Tests', () => {
+    test('should return all albums for all users', async ({ request }) => {
+        const response = await request.get('https://jsonplaceholder.typicode.com/albums');
+
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure and that 100 albums are returned
+        const responseBody: Album[] = await response.json();
+        responseBody.forEach(album => {
+            expect(album.userId).toBeDefined();
+            expect(album.id).toBeDefined();
+            expect(album.title).toBeDefined();
+        })
+        expect(responseBody.length).toBe(100);
+    })
+    test('should return a single album', async ({ request }) => {
+        const response = await request.get('https://jsonplaceholder.typicode.com/albums/1');
+
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure and that id is 1
+        const responseBody = await response.json();
+        expect(responseBody.id).toBe(1);
+    })
+    test('should return status code 404', async ({ request }) => {
+        const response = await request.get('https://jsonplaceholder.typicode.com/albums/999');
+        expect(response.status()).toBe(404)
+    })
+})
