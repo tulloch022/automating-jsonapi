@@ -27,7 +27,7 @@ test.describe('/photos API Endpoint Tests', () => {
         })
     })
     test('should return a single photo', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/photos/1');
+        const response = await request.get('/photos/1');
 
         // Verify response status is good
         expect(response.status()).toBe(200);
@@ -37,7 +37,7 @@ test.describe('/photos API Endpoint Tests', () => {
         expect(responseBody.id).toBe(1)
     })
     test('should return a 404 status code', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/photos/9999');
+        const response = await request.get('/photos/9999');
         expect(response.status()).toBe(404);
     })
 })

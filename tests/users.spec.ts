@@ -22,7 +22,7 @@ interface User {
 
 test.describe('/users API Endpoint Tests', () => {
     test('should return all users', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/users');
+        const response = await request.get('/users');
 
         // Verify status code is good
         expect(response.status()).toBe(200);
@@ -42,7 +42,7 @@ test.describe('/users API Endpoint Tests', () => {
         })
     })
     test('should return a single user', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/users/1')
+        const response = await request.get('/users/1')
 
         // Verify the status is good
         expect(response.status()).toBe(200);
@@ -52,7 +52,7 @@ test.describe('/users API Endpoint Tests', () => {
         expect(responseBody.id).toEqual(1)
     })
     test('should return a 404 status code', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/users/999');
+        const response = await request.get('/users/999');
         expect(response.status()).toBe(404);
     })
 })

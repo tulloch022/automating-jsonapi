@@ -10,7 +10,7 @@ interface Comment {
 
 test.describe('/comments API Endpoint Test', () => {
     test('should return all comments for all posts', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/comments');
+        const response = await request.get('/comments');
     
         // Verify status code is good
         expect(response.status()).toBe(200);
@@ -30,7 +30,7 @@ test.describe('/comments API Endpoint Test', () => {
     })
     
     test('should return comments for postId=2', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/comments?postId=2')
+        const response = await request.get('/comments?postId=2')
     
          // Verify status code is good
         expect(response.status()).toBe(200);

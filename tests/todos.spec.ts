@@ -10,7 +10,7 @@ interface Todo {
 
 test.describe('/todos API Endpoint Tests', () => {
     test('should return all todos for all users', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/todos');
+        const response = await request.get('/todos');
 
         // Verify status code is good
         expect(response.status()).toBe(200);
@@ -28,13 +28,13 @@ test.describe('/todos API Endpoint Tests', () => {
        expect(responseBody.length).toEqual(200);
     })
     test('should return a single todo with id of 1', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/todos/1');
+        const response = await request.get('/todos/1');
         
         const responseBody = await response.json();
         expect(responseBody.id).toBe(1);
     })
     test('should return a 404 status code', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/todos/999');
+        const response = await request.get('/todos/999');
         expect(response.status()).toBe(404);
     })
 })

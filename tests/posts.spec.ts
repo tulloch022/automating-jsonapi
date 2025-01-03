@@ -10,7 +10,7 @@ interface Post {
 
 test.describe('/posts API Endpoint Tests', () => {
     test('should return all posts for all users', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/posts');
+        const response = await request.get('/posts');
     
         // Verify status code is good
         expect(response.status()).toBe(200);
@@ -30,7 +30,7 @@ test.describe('/posts API Endpoint Tests', () => {
     
     
     test('should return posts for userId=1', async ({ request}) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/posts?userId=1');
+        const response = await request.get('/posts?userId=1');
     
         // Verify status code is good
         expect(response.status()).toBe(200);
@@ -47,7 +47,7 @@ test.describe('/posts API Endpoint Tests', () => {
     })
 
     test('should return exactly 5 posts', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/posts?_limit=5');
+        const response = await request.get('/posts?_limit=5');
 
         // Verify status code is good
         expect(response.status()).toBe(200);
@@ -58,7 +58,7 @@ test.describe('/posts API Endpoint Tests', () => {
     })
 
     test('should return posts in ascending order', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/posts?_sort=title&_order=asc');
+        const response = await request.get('/posts?_sort=title&_order=asc');
 
         // Verify status code is good
         expect(response.status()).toBe(200);

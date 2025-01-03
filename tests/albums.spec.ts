@@ -10,7 +10,7 @@ interface Album {
 
 test.describe('/albums API Endpoint Tests', () => {
     test('should return all albums for all users', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/albums');
+        const response = await request.get('/albums');
 
         // Verify response status is good
         expect(response.status()).toBe(200);
@@ -25,7 +25,7 @@ test.describe('/albums API Endpoint Tests', () => {
         expect(responseBody.length).toBe(100);
     })
     test('should return a single album', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/albums/1');
+        const response = await request.get('/albums/1');
 
         // Verify response status is good
         expect(response.status()).toBe(200);
@@ -35,7 +35,7 @@ test.describe('/albums API Endpoint Tests', () => {
         expect(responseBody.id).toBe(1);
     })
     test('should return status code 404', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/albums/999');
+        const response = await request.get('/albums/999');
         expect(response.status()).toBe(404)
     })
 })
