@@ -7,6 +7,13 @@ interface Post {
     body: string;
 }
 
+const validatePostStructure = (post: Post) => {
+    expect(post.userId).toBeDefined();
+    expect(post.id).toBeDefined();
+    expect(post.title).toBeDefined();
+    expect(post.body).toBeDefined();
+}
+
 test.describe('/posts API Endpoint Tests', () => {
     test('should return all posts for all users', async ({ request }) => {
         const response = await request.get('/posts');
@@ -18,12 +25,7 @@ test.describe('/posts API Endpoint Tests', () => {
         const responseBody: Post[] = await response.json();
         expect(responseBody.length).toBeGreaterThan(0);
     
-        responseBody.forEach((post) => {
-            expect(post.userId).toBeDefined();
-            expect(post.id).toBeDefined();
-            expect(post.title).toBeDefined();
-            expect(post.body).toBeDefined();
-        })
+        responseBody.forEach(validatePostStructure)
     });
     
     
@@ -81,11 +83,6 @@ test.describe('/posts API Endpoint Tests', () => {
         expect(responseBody.length).toBe(100);
 
         // Verify structure of response
-        responseBody.forEach((post) => {
-            expect(post.userId).toBeDefined();
-            expect(post.id).toBeDefined();
-            expect(post.title).toBeDefined();
-            expect(post.body).toBeDefined();
-        })
+        responseBody.forEach(validatePostStructure)
     })
 });
