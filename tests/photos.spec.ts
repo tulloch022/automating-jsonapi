@@ -10,8 +10,8 @@ interface Photo {
 }
 
 test.describe('/photos API Endpoint Tests', () => {
-    test('should return all photos', async ({ request }) => {
-        const response = await request.get('https://jsonplaceholder.typicode.com/photos');
+    test('should return 100 photos', async ({ request }) => {
+        const response = await request.get('/photos?_limit=100');
 
         // Verify response status is good
         expect(response.status()).toBe(200);
