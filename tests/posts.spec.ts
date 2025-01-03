@@ -7,7 +7,6 @@ interface Post {
     body: string;
 }
 
-
 test.describe('/posts API Endpoint Tests', () => {
     test('should return all posts for all users', async ({ request }) => {
         const response = await request.get('/posts');
@@ -19,7 +18,6 @@ test.describe('/posts API Endpoint Tests', () => {
         const responseBody: Post[] = await response.json();
         expect(responseBody.length).toBeGreaterThan(0);
     
-        // Verify structure of each post
         responseBody.forEach((post) => {
             expect(post.userId).toBeDefined();
             expect(post.id).toBeDefined();
@@ -70,5 +68,24 @@ test.describe('/posts API Endpoint Tests', () => {
         const sortedTitles = [...actualTitles].sort()
         
         expect(actualTitles).toEqual(sortedTitles)
+    })
+    test('should return all posts with no limit', async ({ request }) => {
+        // Provide invalid query parameter
+        const response = await request.get('/posts?_limits=5');
+
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify no limit was applied and all posts returned
+        const responseBody: Post[] = await response.json();
+        expect(responseBody.length).toBe(100);
+
+        // Verify structure of response
+        responseBody.forEach((post) => {
+            expect(post.userId).toBeDefined();
+            expect(post.id).toBeDefined();
+            expect(post.title).toBeDefined();
+            expect(post.body).toBeDefined();
+        })
     })
 });
