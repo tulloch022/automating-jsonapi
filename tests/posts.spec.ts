@@ -95,4 +95,15 @@ test.describe('/posts API Endpoint Tests', () => {
         const responseBody = await response.json();
         expect(responseBody.length, 'Expected response to be empty').toBe(0);
     })
+    test('should create new post with provided values', async ({ request }) => {
+        const newPost = {
+                "title": "foo",
+                "body": "bar",
+                "userId": 1
+        }
+        const response = await request.post('/posts', {data: newPost})
+
+        // Verify status code is created
+        expect(response.status(), 'Expected status code to be 201').toBe(201);
+    })
 });
