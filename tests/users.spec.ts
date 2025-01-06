@@ -55,7 +55,7 @@ test.describe('/users API Endpoint Tests', () => {
         const response = await request.get('/users/999');
         expect(response.status()).toBe(404);
     })
-    test('should update existing user with provided values', async ({ request }) => {
+    test('should update entire existing user with provided values', async ({ request }) => {
         const updatedUser: User = {
             id: 1,
             name: 'kevin',
@@ -85,5 +85,23 @@ test.describe('/users API Endpoint Tests', () => {
         expect(responseBody.username).toBe(updatedUser.username);
         expect(responseBody.email).toBe(updatedUser.email);
         expect(responseBody.address).toEqual(updatedUser.address);
+    })
+    test('should update partial existing user with provided values', async ({ request }) => {
+        const partialUpdatedUser = {
+            name: 'Not Kevin'
+        }
+        const response = await request.patch('/users/1', {
+            data: partialUpdatedUser
+        })
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify response body structure
+        const responseBody: User = await response.json();
+        expect(responseBody.name).toBe('Not Kevin');
+        expect(responseBody.id).toBeDefined();
+        expect(responseBody.username).toBeDefined();
+        expect(responseBody.email).toBeDefined();
+        expect(responseBody.address).toBeDefined();
     })
 })
