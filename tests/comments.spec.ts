@@ -117,7 +117,7 @@ test.describe('/comments API Endpoint Test', () => {
         expect(responseBody.body).toBe(newComment.body);
         expect(responseBody.id).toBeDefined();
     })
-    test('should update existing comment with provided values', async ({ request }) => {
+    test('should update entire existing comment with provided values', async ({ request }) => {
         const updatedComment = {
             id: 1,
             postId: 3,
@@ -138,5 +138,23 @@ test.describe('/comments API Endpoint Test', () => {
         expect(responseBody.name).toBe(updatedComment.name);
         expect(responseBody.email).toBe(updatedComment.email);
         expect(responseBody.body).toBe(updatedComment.body);
+    })
+    test('should update partial existing comment with provided values', async ({ request }) => {
+        const partialUpdatedComment = {
+            body: 'this is the best comment now'
+        }
+        const response = await request.patch('/comments/1', {
+            data: partialUpdatedComment
+        })
+        // Verify response is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure of response body
+        const responseBody: Comment = await response.json();
+        expect(responseBody.body).toBe('this is the best comment now');
+        expect(responseBody.id).toBeDefined();
+        expect(responseBody.postId).toBeDefined();
+        expect(responseBody.name).toBeDefined();
+        expect(responseBody.email).toBeDefined();
     })
 })
