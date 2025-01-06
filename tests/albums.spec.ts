@@ -34,7 +34,7 @@ test.describe('/albums API Endpoint Tests', () => {
         const responseBody = await response.json();
         expect(responseBody.id).toBe(1);
     })
-    test('should return status code 404', async ({ request }) => {
+    test('should return status code 404 for a non-existent album', async ({ request }) => {
         const response = await request.get('/albums/999');
         expect(response.status()).toBe(404)
     })
@@ -90,8 +90,8 @@ test.describe('/albums API Endpoint Tests', () => {
         expect(responseBody.id).toBeDefined();
         expect(responseBody.userId).toBeDefined();
     })
-    test('should remove the specified album', async ({ request }) => {
-        const response = await request.delete('albums/1');
+    test('should delete an existing album', async ({ request }) => {
+        const response = await request.delete('/albums/1');
         // Verify response status is good
         expect(response.status()).toBeLessThanOrEqual(204);
     })
