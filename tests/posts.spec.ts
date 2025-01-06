@@ -105,5 +105,11 @@ test.describe('/posts API Endpoint Tests', () => {
 
         // Verify status code is created
         expect(response.status(), 'Expected status code to be 201').toBe(201);
+
+        // Verify response body structure
+        const responseBody = await response.json();
+        expect(responseBody.title).toBeDefined();
+        expect(responseBody.body).toBeDefined();
+        expect(responseBody.userId).toBeDefined();
     })
 });
