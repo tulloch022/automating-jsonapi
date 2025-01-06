@@ -90,4 +90,9 @@ test.describe('/albums API Endpoint Tests', () => {
         expect(responseBody.id).toBeDefined();
         expect(responseBody.userId).toBeDefined();
     })
+    test('should remove the specified album', async ({ request }) => {
+        const response = await request.delete('posts/1');
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+    })
 })
