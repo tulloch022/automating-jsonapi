@@ -101,7 +101,8 @@ test.describe('/posts API Endpoint Tests', () => {
                 "body": "bar",
                 "userId": 1
         }
-        const response = await request.post('/posts', {data: newPost})
+        const response = await request.post('/posts', {
+            data: newPost})
 
         // Verify status code is created
         expect(response.status(), 'Expected status code to be 201').toBe(201);
