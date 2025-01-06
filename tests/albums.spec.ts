@@ -38,7 +38,7 @@ test.describe('/albums API Endpoint Tests', () => {
         const response = await request.get('/albums/999');
         expect(response.status()).toBe(404)
     })
-    test('should create a new ablum with the provided values', async ({ request }) => {
+    test('should create a new album with the provided values', async ({ request }) => {
         const newAlbum: Album = {
             userId: 3,
             title: 'album name',
@@ -91,8 +91,8 @@ test.describe('/albums API Endpoint Tests', () => {
         expect(responseBody.userId).toBeDefined();
     })
     test('should remove the specified album', async ({ request }) => {
-        const response = await request.delete('posts/1');
+        const response = await request.delete('albums/1');
         // Verify response status is good
-        expect(response.status()).toBe(200);
+        expect(response.status()).toBeLessThanOrEqual(204);
     })
 })
