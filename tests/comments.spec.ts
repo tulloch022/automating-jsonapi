@@ -117,4 +117,26 @@ test.describe('/comments API Endpoint Test', () => {
         expect(responseBody.body).toBe(newComment.body);
         expect(responseBody.id).toBeDefined();
     })
+    test('should update existing comment with provided values', async ({ request }) => {
+        const updatedComment = {
+            id: 1,
+            postId: 3,
+            name: 'me',
+            email: 'my@email.com',
+            body: 'this is not a comment anymore'
+        }
+        const response = await request.put('/comments/1', {
+            data: updatedComment,
+        })
+        // Verify status of response is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure of response
+        const responseBody: Comment = await response.json();
+        expect(responseBody.id).toBe(updatedComment.id);
+        expect(responseBody.postId).toBe(updatedComment.postId);
+        expect(responseBody.name).toBe(updatedComment.name);
+        expect(responseBody.email).toBe(updatedComment.email);
+        expect(responseBody.body).toBe(updatedComment.body);
+    })
 })
