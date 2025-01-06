@@ -149,9 +149,7 @@ test.describe('/posts API Endpoint Tests', () => {
         // Verify structure of response
         const responseBody: Post = await response.json();
         expect(responseBody.body).toBe("updated Body");
-        expect(responseBody.title).toBeDefined();
-        expect(responseBody.id).toBeDefined();
-        expect(responseBody.userId).toBeDefined();
+        validatePostStructure(responseBody);
     })
     test('should remove specified post', async ({ request }) => {
         const response = await request.delete('/posts/1');
