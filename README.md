@@ -1,36 +1,30 @@
+# JSONPlaceholder API Test Suite
 
-# **JSONPlaceholder API Test Suite**
+## Overview
+This repository contains comprehensive API test suites for the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/), designed to validate the functionality, reliability, and integrity of all supported endpoints.
 
-### **Overview**
-This project demonstrates automated API testing for [JSONPlaceholder](https://jsonplaceholder.typicode.com/) using [Playwright](https://playwright.dev/). It focuses on verifying API endpoints, testing query parameters, and ensuring data integrity.
+## Key Features
+- **Full CRUD Coverage**: Includes `GET`, `POST`, `PUT`, `PATCH`, and `DELETE` operations across all applicable endpoints.
+- **Comprehensive Testing**:
+  - Validates response structure and status codes.
+  - Handles edge cases, including non-existent resources and invalid query parameters.
+- **Reusable Validation Functions**: Implements modular helper functions for consistency and maintainability.
+- **Production-Ready**: Designed with professional standards, ready for integration into CI/CD pipelines.
 
-This repository is a **work in progress**, serving as a hands-on portfolio project to showcase API testing skills and refine best practices.
+## Endpoints Tested
+| Endpoint       | Methods Implemented                  | Status       |
+|----------------|--------------------------------------|--------------|
+| `/posts`       | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` | ✅ Completed |
+| `/comments`    | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` | ✅ Completed |
+| `/albums`      | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` | ✅ Completed |
+| `/photos`      | `GET`                                 | ✅ Completed |
+| `/todos`       | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` | ✅ Completed |
+| `/users`       | `GET`, `PUT`, `PATCH`                 | ✅ Completed |
 
----
-
-### **Features Tested**
-The following API endpoints have been implemented and are actively tested:
-1. **/posts**
-   - Retrieve all posts.
-   - Filter posts by `userId`.
-   - Limit results using `_limit`.
-   - Sort posts by title using `_sort` and `_order`.
-
-2. **/comments**
-   - Retrieve all comments.
-   - Filter comments by `postId`.
-
-Additional endpoints and advanced scenarios are planned as part of the ongoing project development.
-
----
-
-### **Current Capabilities**
-- Type-safe interfaces for structured API responses.
-- Tests for query parameters, filtering, and sorting.
-- Reliable execution with Playwright's API testing capabilities.
-- Structured and maintainable code for scalability.
-
----
+## Technologies Used
+- **Playwright**: Modern testing framework for reliable API tests.
+- **TypeScript**: Ensures type safety and improves code maintainability.
+- **Node.js**: Core runtime environment for executing tests.
 
 ### **How to Run the Tests**
 1. Clone the repository:
@@ -49,19 +43,3 @@ Additional endpoints and advanced scenarios are planned as part of the ongoing p
    ```bash
    npx playwright test
    ```
-
----
-
-### **Next Steps**
-- Add tests for additional endpoints:
-  - **/users**
-  - **/albums**
-  - **/photos**
-  - **/todos**
-- Implement edge case testing for invalid inputs.
-- Set up CI/CD pipelines for automated testing and reporting.
-
----
-
-### **Disclaimer**
-This repository is under active development and may contain interim files or experimental implementations.
