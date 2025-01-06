@@ -55,5 +55,6 @@ test.describe('/todos API Endpoint Tests', () => {
         expect(responseBody.userId).toBe(newTodo.userId);
         expect(responseBody.title).toBe(newTodo.title);
         expect(responseBody.completed).toBe(newTodo.completed);
+        expect(responseBody.id).toBeDefined();
     })
 })
