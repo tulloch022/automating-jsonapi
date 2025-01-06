@@ -153,4 +153,9 @@ test.describe('/posts API Endpoint Tests', () => {
         expect(responseBody.id).toBeDefined();
         expect(responseBody.userId).toBeDefined();
     })
+    test('should remove specified post', async ({ request }) => {
+        const response = await request.delete('/posts/1');
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+    })
 });
