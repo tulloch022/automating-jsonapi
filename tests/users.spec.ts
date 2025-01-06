@@ -55,4 +55,35 @@ test.describe('/users API Endpoint Tests', () => {
         const response = await request.get('/users/999');
         expect(response.status()).toBe(404);
     })
+    test('should update existing user with provided values', async ({ request }) => {
+        const updatedUser: User = {
+            id: 1,
+            name: 'kevin',
+            username: 'kevin32',
+            email: 'my@email.com',
+            address: {
+                street: 'my street',
+                suite: 'my suite',
+                city: 'my city',
+                zipcode: 'my zip',
+                geo: {
+                    lat: 'my lat',
+                    lng: 'my lng',
+                }
+            }
+        }
+        const response = await request.put('/users/1', {
+            data: updatedUser,
+        })
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure of response body
+        const responseBody: User = await response.json();
+        expect(responseBody.id).toBe(updatedUser.id);
+        expect(responseBody.name).toBe(updatedUser.name);
+        expect(responseBody.username).toBe(updatedUser.username);
+        expect(responseBody.email).toBe(updatedUser.email);
+        expect(responseBody.address).toEqual(updatedUser.address);
+    })
 })
