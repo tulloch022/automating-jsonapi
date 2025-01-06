@@ -94,4 +94,9 @@ test.describe('/todos API Endpoint Tests', () => {
         expect(responseBody.userId).toBeDefined();
         expect(responseBody.completed).toBeDefined();
     })
+    test('should remove specified todo', async ({ request }) => {
+        const response = await request.delete('/todos/1');
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+    })
 })
