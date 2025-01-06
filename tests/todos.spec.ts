@@ -57,4 +57,24 @@ test.describe('/todos API Endpoint Tests', () => {
         expect(responseBody.completed).toBe(newTodo.completed);
         expect(responseBody.id).toBeDefined();
     })
+    test('should update existing todo with provided values', async ({ request }) => {
+        const newTodo = {
+            id: 1,
+            userId: 1,
+            title:'new title',
+            completed: false
+        }
+        const response = await request.put('/todos/1', {
+            data: newTodo,
+        })
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure of response
+        const responseBody = await response.json();
+        expect(responseBody.id).toBe(newTodo.id);
+        expect(responseBody.userId).toBe(newTodo.userId);
+        expect(responseBody.title).toBe(newTodo.title);
+        expect(responseBody.completed).toBe(newTodo.completed);
+    })
 })
