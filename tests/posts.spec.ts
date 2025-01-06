@@ -114,4 +114,26 @@ test.describe('/posts API Endpoint Tests', () => {
         expect(responseBody.userId).toBe(newPost.userId);
         expect(responseBody.id).toBeDefined();
     })
+    test('should update existing post with provided values', async ({ request }) => {
+        const updatedPost = {
+            "id": 1,
+            "title": "bar",
+            "body": "foo",
+            "userId": 1
+        }
+
+        const response = await request.put('/posts/1', {
+            data: updatedPost
+        })
+
+        // Verify response status is good
+        expect(response.status()).toBe(200)
+
+        // Verify structure of response
+        const responseBody: Post = await response.json();
+        expect(responseBody.id).toBe(updatedPost.id);
+        expect(responseBody.title).toBe(updatedPost.title);
+        expect(responseBody.body).toBe(updatedPost.body);
+        expect(responseBody.userId).toBe(updatedPost.userId);
+    })
 });
