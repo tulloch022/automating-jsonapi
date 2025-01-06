@@ -57,7 +57,7 @@ test.describe('/todos API Endpoint Tests', () => {
         expect(responseBody.completed).toBe(newTodo.completed);
         expect(responseBody.id).toBeDefined();
     })
-    test('should update existing todo with provided values', async ({ request }) => {
+    test('should update entire existing todo with provided values', async ({ request }) => {
         const newTodo = {
             id: 1,
             userId: 1,
@@ -76,5 +76,22 @@ test.describe('/todos API Endpoint Tests', () => {
         expect(responseBody.userId).toBe(newTodo.userId);
         expect(responseBody.title).toBe(newTodo.title);
         expect(responseBody.completed).toBe(newTodo.completed);
+    })
+    test('should update partial existing todo with provided values', async ({ request }) => {
+        const partialUpdatedTodo = {
+            title: 'updated title'
+        }
+        const response = await request.patch('/todos/1', {
+            data: partialUpdatedTodo
+        })
+        // Verify status of response is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure of response
+        const responseBody: Todo = await response.json();
+        expect(responseBody.title).toBe('updated title');
+        expect(responseBody.id).toBeDefined();
+        expect(responseBody.userId).toBeDefined();
+        expect(responseBody.completed).toBeDefined();
     })
 })
