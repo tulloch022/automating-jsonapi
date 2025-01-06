@@ -116,10 +116,10 @@ test.describe('/posts API Endpoint Tests', () => {
     })
     test('should update existing post with provided values', async ({ request }) => {
         const updatedPost = {
-            "id": 1,
-            "title": "bar",
-            "body": "foo",
-            "userId": 1
+            id: 1,
+            title: "bar",
+            body: "foo",
+            userId: 1
         }
 
         const response = await request.put('/posts/1', {
@@ -135,5 +135,22 @@ test.describe('/posts API Endpoint Tests', () => {
         expect(responseBody.title).toBe(updatedPost.title);
         expect(responseBody.body).toBe(updatedPost.body);
         expect(responseBody.userId).toBe(updatedPost.userId);
+    })
+    test('should update partial existing post with provided values', async ({ request }) => {
+        const partialUpdatedPost = {
+            body: "updated Body"
+        }
+        const response = await request.patch('/posts/1', {
+            data: partialUpdatedPost
+        })
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure of response
+        const responseBody: Post = await response.json();
+        expect(responseBody.body).toBe("updated Body");
+        expect(responseBody.title).toBeDefined();
+        expect(responseBody.id).toBeDefined();
+        expect(responseBody.userId).toBeDefined();
     })
 });
