@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 interface Comment {
     postId: number,
-    id: number,
+    id?: number,
     name: string,
     email: string,
     body: string
@@ -95,4 +95,26 @@ test.describe('/comments API Endpoint Test', () => {
         // Verify structure of each comment
         responseBody.forEach(validateCommentStructure);
     });
+    test('should create a new comment with provided data', async ({ request }) => {
+        const newComment: Comment = {
+            postId: 3,
+            name: 'kevin',
+            email: 'kevin@kevincom',
+            body: 'this is a comment'
+        }
+        const response = await request.post('/comments', {
+            data: newComment,
+        })
+
+        // Verify response status is good
+        expect(response.status()).toBe(201);
+
+        // Verify structure of response.
+        const responseBody: Comment = await response.json();
+        expect(responseBody.postId).toBe(newComment.postId);
+        expect(responseBody.name).toBe(newComment.name);
+        expect(responseBody.email).toBe(newComment.email);
+        expect(responseBody.body).toBe(newComment.body);
+        expect(responseBody.id).toBeDefined();
+    })
 })
