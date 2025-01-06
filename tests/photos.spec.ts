@@ -10,7 +10,7 @@ interface Photo {
 }
 
 test.describe('/photos API Endpoint Tests', () => {
-    test('should return 100 photos', async ({ request }) => {
+    test('should return 100 photos with valid structure when _limit=100', async ({ request }) => {
         const response = await request.get('/photos?_limit=100');
 
         // Verify response status is good
