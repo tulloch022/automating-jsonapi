@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 
 interface Todo {
     userId: number;
-    id: number;
+    id?: number;
     title: string;
     completed: boolean;
 }
@@ -36,5 +36,24 @@ test.describe('/todos API Endpoint Tests', () => {
     test('should return a 404 status code', async ({ request }) => {
         const response = await request.get('/todos/999');
         expect(response.status()).toBe(404);
+    })
+    test('should create new todo with provided values', async ({ request }) => {
+        const newTodo: Todo = {
+            userId: 1,
+            title: 'title',
+            completed: true,
+        }
+        const response = await request.post('/todos', {
+            data: newTodo,
+        })
+
+        // Verify response status is good
+        expect(response.status()).toBe(201);
+
+        // Verify structure of response body
+        const responseBody: Todo = await response.json();
+        expect(responseBody.userId).toBe(newTodo.userId);
+        expect(responseBody.title).toBe(newTodo.title);
+        expect(responseBody.completed).toBe(newTodo.completed);
     })
 })
