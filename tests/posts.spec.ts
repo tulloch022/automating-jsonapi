@@ -108,8 +108,9 @@ test.describe('/posts API Endpoint Tests', () => {
 
         // Verify response body structure
         const responseBody = await response.json();
-        expect(responseBody.title).toBeDefined();
-        expect(responseBody.body).toBeDefined();
-        expect(responseBody.userId).toBeDefined();
+        expect(responseBody.title).toBe(newPost.title);
+        expect(responseBody.body).toBe(newPost.body);
+        expect(responseBody.userId).toBe(newPost.userId);
+        expect(responseBody.id).toBeDefined();
     })
 });
