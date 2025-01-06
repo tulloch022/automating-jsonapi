@@ -55,7 +55,7 @@ test.describe('/albums API Endpoint Tests', () => {
         expect(responseBody.userId).toBe(newAlbum.userId);
         expect(responseBody.title).toBe(newAlbum.title);
     })
-    test('should update existing album with provided values', async ({ request }) => {
+    test('should update entire existing album with provided values', async ({ request }) => {
         const updatedAlbum =  {
             id: 1,
             userId: 3,
@@ -73,5 +73,21 @@ test.describe('/albums API Endpoint Tests', () => {
         expect(responseBody.id).toBe(updatedAlbum.id);
         expect(responseBody.userId).toBe(updatedAlbum.userId);
         expect(responseBody.title).toBe(updatedAlbum.title);
+    })
+    test('should update partial existing album with provided values', async ({ request }) => {
+        const partialUpdatedAlbum = {
+            title: 'newest album name'
+        }
+        const response = await request.patch('/albums/1', {
+            data: partialUpdatedAlbum,
+        })
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+
+        // Verify structure of response body
+        const responseBody: Album = await response.json();
+        expect(responseBody.title).toBe(partialUpdatedAlbum.title);
+        expect(responseBody.id).toBeDefined();
+        expect(responseBody.userId).toBeDefined();
     })
 })
