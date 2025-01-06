@@ -157,4 +157,9 @@ test.describe('/comments API Endpoint Test', () => {
         expect(responseBody.name).toBeDefined();
         expect(responseBody.email).toBeDefined();
     })
+    test('should remove specified comment', async ({ request }) => {
+        const response = await request.delete('/comments/1');
+        // Verify response status is good
+        expect(response.status()).toBe(200);
+    })
 })
